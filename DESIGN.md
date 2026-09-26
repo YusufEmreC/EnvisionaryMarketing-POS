@@ -1,7 +1,7 @@
-# ElitePOS-Enterprise Design System
+# Envisionary Marketing POS Design System
 
 ```yaml
-name: ElitePOS-Enterprise
+name: EnvisionaryMarketingPOS
 version: "1.0.0"
 description: "High-frequency transaction point-of-sale system for desktop countertop terminals with tactile touch controls."
 colors:
@@ -72,7 +72,7 @@ components:
     height: "56px"
 ```
 
-## ElitePOS — Design System Guidelines
+## Envisionary Marketing POS — Design System Guidelines
 
 This system enforces strict WCAG 2.2 AA accessibility and physical touch ergonomics.
 
