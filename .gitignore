@@ -38,3 +38,6 @@ publish/
 # Log files
 *.log
 PosAppCrashLog.txt
+
+# Gemini Agent Configuration
+.agents/
