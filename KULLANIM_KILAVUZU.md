@@ -1,6 +1,6 @@
 # Envisionary Marketing POS - Kullanım Kılavuzu
 
-Envisionary Marketing POS, perakende mağazalarınızın (market, büfe, mağaza vb.) tüm kasa, ürün ve stok yönetimini kolayca yapabilmeniz için geliştirilmiş, hızlı ve modern bir masaüstü otomasyon sistemidir. 
+Envisionary Marketing POS, perakende mağazalarınızın (kırtasiye, market, büfe, butik vb.) tüm kasa, ürün ve stok yönetimini kolayca yapabilmeniz için geliştirilmiş, hızlı ve modern bir masaüstü otomasyon sistemidir. 
 
 Bu kılavuz, programı ilk açılıştan itibaren nasıl kullanacağınızı tüm ayrıntılarıyla ama en sade haliyle anlatmaktadır.
 
@@ -22,9 +22,11 @@ Bu işlemi sadece ilk seferde yaparsınız. Sonraki günlerde programı açtığ
 Uygulamanın kalbi burasıdır. Müşterileriniz kasaya geldiğinde işlemleri saniyeler içinde tamamlayabilirsiniz.
 
 - **Ürün Okutma:** Ekranda yanıp sönen arama çubuğuna elinizdeki barkod okuyucu ile ürünü okutun. Ürün anında sepete düşer. Eğer okuyucunuz yoksa, klavyeden ürünün adını yazarak da aratıp sepete ekleyebilirsiniz.
-- **Hızlı (Barkodsuz) Ürünler:** Poşet, ekmek, su gibi barkodu olmayan ürünleri satmak için tablonun hemen üstündeki **"🍎 Barkodsuz / Hızlı Ürünler Seç"** butonuna tıklayın. Açılan listeden ürünün resmine/ismine tıklayarak anında sepete atabilirsiniz.
-- **Adet Değiştirme:** Müşteri aynı üründen 3 tane aldıysa, tek tek okutmanıza gerek yok. Sepete düşen ürünün yanındaki **"+"** veya **"-"** tuşlarına basarak sayıyı anında değiştirebilirsiniz. Tutar otomatik güncellenir. Kritik buton alanları dokunmatik ekranlar için **56x56px** aktif alana sahiptir.
+- **Hızlı (Barkodsuz) Ürünler:** Fotokopi, poşet, su gibi barkodu olmayan hizmet ve ürünleri satmak için tablonun sol/üst tarafındaki hızlı ürün butonlarına tıklayın.
+- **Çoklu Satış (Fotokopi vb.):** Müşteri 100 sayfa fotokopi çektirdiyse ekrandaki butona 100 kere basmanıza gerek yoktur. Miktar girme ekranını kullanarak önce "100" yazıp ardından ürünü seçerek sepete tek kalemde toplu ekleme yapabilirsiniz.
+- **Adet Değiştirme:** Sepete düşen ürünün yanındaki **"+"** veya **"-"** tuşlarına basarak sayıyı anında değiştirebilirsiniz. Tutar otomatik güncellenir.
 - **Ödeme Alma:** Sağ alt köşedeki **Nakit** veya **Kredi Kartı** butonlarına tıklayarak satışı tamamlayın. İşlem biter bitmez otomatik olarak fişiniz yazdırılır (yazıcı ayarlıysa).
+- **Para Üstü Hesaplama:** Nakit ödemelerde, müşterinin size verdiği parayı sisteme girdiğinizde, program devasa rakamlarla para üstünü ekrana yansıtır.
 - **İade Alma:** Müşteri ürün iade getirdiyse, sağ alttaki **"İade Al"** butonuna tıklayıp iade edilen ürünü seçmeniz yeterlidir. Tutar kasadan düşülür ve stok tekrar depoya eklenir. Finansal risk taşıyan iade işlemleri yönetici şifre onayına tabidir.
 
 ---
@@ -34,12 +36,12 @@ Uygulamanın kalbi burasıdır. Müşterileriniz kasaya geldiğinde işlemleri s
 Sol menüden "Ürünler" sekmesine tıklayarak mağazanızdaki tüm ürünleri yönetebilirsiniz.
 
 - **Barkodlu Ürün Ekleme:** Ürünün barkodunu okutun, adını, alış-satış fiyatını ve elinizde kaç tane (stok) olduğunu girin. (İsteğe bağlı olarak Son Kullanma Tarihi ve KDV oranını da girebilirsiniz).
-- **Hızlı / Barkodsuz Ürün Ekleme:** Sayfanın biraz daha altındaki "⚡ Barkodsuz / Hızlı Ürün Ekle" kartını kullanarak saniyeler içinde Ekmek, Poşet gibi ürünleri yaratabilirsiniz. Sadece "İsim" ve "Fiyat" girmeniz yeterlidir. Bu ürünler direkt kasadaki hızlı menüye düşer.
+- **Hızlı / Barkodsuz Ürün Ekleme:** Saniyeler içinde barkodsuz ürün (örn: Çıktı, Ekmek) yaratabilirsiniz. Bu ürünler direkt kasadaki hızlı menüye düşer.
 - **Stok ve Tarih Uyarıları:** 
   - Elinizde 4 adet ve daha az kalan ürünler kırmızı bir **"Kritik"** uyarısı verir.
   - Son kullanma tarihine 15 günden az kalan ürünler **"SKT Yaklaştı"** veya **"Gün Geçti"** şeklinde sizi uyarır.
-- **Excel / CSV ile Toplu Ürün Yükleme:** 
-  - Envanter ekranının üst kısmında bulunan **"Excel/CSV İçe Aktar"** butonunu kullanarak yüzlerce ürünü saniyeler içinde sisteme yükleyebilirsiniz.
+- **Excel / CSV ile Toplu Ürün Yükleme (ClosedXML):** 
+  - Envanter ekranının üst kısmında bulunan **"Excel/CSV İçe Aktar"** butonunu kullanarak yüzlerce ürünü (Örn: Toptancı fiyat listesini) saniyeler içinde sisteme yükleyebilirsiniz.
   - Sistemin kabul ettiği Excel dosyası sırasıyla şu sütunlardan oluşmalıdır:
     1. *Barkod (A)*
     2. *Ürün Adı (B)*
@@ -55,7 +57,7 @@ Sol menüden "Ürünler" sekmesine tıklayarak mağazanızdaki tüm ürünleri y
 
 ## 4. Raporlar, Kapanış ve Rapor Arşivi
 
-İşletmenizin ne kadar kazandığını, kar-zarar durumunu bu ekrandan şeffafça görebilirsiniz. (Bu ekranı sadece Yönetici hesabı görebilir, kasiyerler göremez.)
+İşletmenizin ne kadar kazandığını, kar-zarar durumunu bu ekrandan şeffafça görebilirsiniz. (Bu ekranı sadece Yönetici hesabı görebilir).
 
 - **Günlük Özet (Dashboard):** Bugün ne kadar ciro yaptığınızı, bunun ne kadarının Nakit, ne kadarının Kredi Kartı olduğunu en üstteki kartlardan takip edin. Ayrıca **Net Karınızı** (Alış fiyatları düşüldükten sonra) görebilirsiniz.
 - **En Çok Satanlar:** Hangi ürünlerinizin yok satıyor? Tablodan takip edin.
@@ -63,7 +65,7 @@ Sol menüden "Ürünler" sekmesine tıklayarak mağazanızdaki tüm ürünleri y
 - **Z-Raporu Al (Gün Sonu Kapanışı):** Akşam dükkanı kapatırken "Z-Raporu Al" butonuna basın. 
   1. Çekmecedeki nakit parayı sayın ve ekrana yazın. 
   2. Program size "Kasada olması gereken parayı" ve "Sizin saydığınız parayı" karşılaştırarak Kasada **Açık** mı yoksa **Fazla** mı olduğunu kuruşu kuruşuna söyler.
-  3. Onayladığınızda dükkan o gün için kapanır ve tüm günün hesabı Z-Raporları geçmişine kaydedilir.
+  3. Onayladığınızda dükkan o gün için kapanır ve tüm günün hesabı arşivlenir.
 - **Z-Raporu Arşivi:** Sol menüdeki **"Z-Raporu Arşivi"** sekmesinden geçmiş 30 günün Z-Raporlarını tarihsel olarak inceleyebilir, kasa farklarını kontrol edebilir ve yazıcıdan tekrar çıktı alabilirsiniz.
 
 ---
@@ -72,10 +74,10 @@ Sol menüden "Ürünler" sekmesine tıklayarak mağazanızdaki tüm ürünleri y
 
 Sol menüden Ayarlar kısmına girerek sistemin genel işleyişine müdahale edebilirsiniz.
 
-- **Yazıcı Ayarları:** Bilgisayarınıza bağlı olan Fiş Yazıcısının (Termal Yazıcı) adını buraya yazarak çıktı almaya başlayabilirsiniz. (Desteklenen kağıt boyutları: 58mm ve 80mm).
+- **Yazıcı Ayarları:** Bilgisayarınıza bağlı olan Fiş Yazıcısının (Termal Yazıcı) adını buraya yazarak çıktı almaya başlayabilirsiniz. (Standart 80mm ve 58mm kağıt boyutları desteklenir).
 - **Gider Ekleme:** Gün içinde kasadan para çıkışı olduysa (Örn: Çaycıya 50 TL, Toptancıya 500 TL), bunu Gider Ekle bölümünden yazın. Bu tutarlar akşam Z-Raporu alırken otomatik olarak hesaptan düşülür.
-- **Veri Temizliği:** Aylar geçtikçe çok biriken eski satış geçmişlerini (Örn: 2 ay öncesi) tek tıkla silerek programı hızlandırabilirsiniz.
-- **Fabrika Ayarlarına Dön:** Bu özellik TEHLİKELİDİR. Tüm ürünleri, satışları ve şifreleri geri alınamaz şekilde yok eder ve programı ilk kurulduğu günkü haline sıfırlar.
+- **Veri Temizliği:** Aylar geçtikçe çok biriken eski satış geçmişlerini tek tıkla silerek programı hızlandırabilirsiniz.
+- **Fabrika Ayarlarına Dön:** Bu özellik TEHLİKELİDİR. Tüm ürünleri, satışları ve şifreleri geri alınamaz şekilde yok eder.
 
 ---
 
@@ -83,9 +85,8 @@ Sol menüden Ayarlar kısmına girerek sistemin genel işleyişine müdahale ede
 
 Eğer yanınızda çalışan bir elemanınız varsa, ona kendi şifrenizi vermek yerine "Kullanıcılar" ekranından ona özel bir hesap (Kasiyer) açabilirsiniz.
 
-- **Kasiyer Yetkisi:** Kasiyerler sadece kasada satış yapabilir ve ürünleri görebilir. Raporları inceleyemez, geçmiş satışları ve net karı gömez, ayarları değiştiremezler.
-- **Yönetici Yetkisi:** Uygulamadaki her şeye tam erişimi vardır. 
-*(Eleman işten ayrıldığında tek tuşla hesabını silip kasaya girişini engelleyebilirsiniz).*
+- **Kasiyer Yetkisi:** Kasiyerler sadece kasada satış yapabilir ve ürünleri görebilir. Raporları inceleyemez, geçmiş satışları ve net karı göremez, ayarları değiştiremez veya iptal/iade işlemleri yapamaz.
+- **Yönetici Yetkisi:** Uygulamadaki her şeye tam erişimi vardır. İptal, iade ve Z-Raporu onayı gerektiren her yerde Yönetici şifresi sorulur (Suistimal engeli).
 
 ---
 
@@ -93,33 +94,20 @@ Eğer yanınızda çalışan bir elemanınız varsa, ona kendi şifrenizi vermek
 
 Uygulama, profesyonel kullanım deneyimi ve yüksek güvenlik için aşağıdaki otomatik fonksiyonları içerir:
 
-- **Otomatik Terazi Barkodu Ayrıştırma:**
-  - Kasap, şarküteri veya manav terazilerinden alınan 13 haneli barkodları (27, 28 ve 29 ile başlayan) sistem otomatik olarak tanır.
-  - Barkodun içerisindeki *5 haneli ürün kodunu* ve *5 haneli gramaj bilgisini* (Örn: 01250 -> 1.250 kg) ayıklayarak sepete miktar olarak yansıtır.
-- **Hatalı Çift Okutma Koruması (Debounce):**
-  - Barkod okuyucunun el titremesi veya mekanik hatalardan ötürü 300 ms içinde aynı barkodu yanlışlıkla iki kez okutmasını otomatik olarak engeller.
-- **Para Üstü Hesaplama ve Yetersiz Ödeme Engeli:**
-  - Nakit ödemelerde müşteriden alınan para girildiğinde, sistem para üstünü otomatik olarak hesaplar. Alınan para toplam tutardan az ise tamamlamayı engeller.
-- **Terazi (Tartılı) Miktar Giriş Paneli:**
-  - Ekmek, poşet veya manav ürünleri için ondalıklı ve dokunmatik numpad barındıran hassas bir miktar giriş penceresi mevcuttur.
-- **Stok Limit Uyarısı ve Kontrolü:**
-  - Satış esnasında sepete eklenen miktar eldeki mevcut stoğu aşarsa, kasiyere şık bir uyarı penceresi gösterilir. Satışın eksi stokla devam edip etmeyeceği onaylanır.
-- **Suiistimal (Misconduct) Engeli:**
-  - Sepeti boşaltma, iade alma, Z-Raporu alma gibi finansal riskli işlemlerde elemanın suistimalini önlemek amacıyla **Yönetici Onay Şifresi** ekranı açılır.
-- **Veritabanı Koruma & Otomatik Yedekleme:**
-  - Sistem veritabanı işlemlerinde kilitlenmeleri önlemek için **WAL (Write-Ahead Logging)** moduyla çalışır.
-  - Program her açıldığında son 7 günün yedeğini `AutoBackups` klasörüne otomatik olarak kopyalar ve 7 günden eski yedekleri otomatik temizler.
+- **Otomatik Terazi Barkodu Ayrıştırma:** Kasap, şarküteri veya kuruyemiş terazilerinden alınan barkodları (27, 28 ve 29 ile başlayan) sistem otomatik olarak tanır. Barkodun içerisindeki *5 haneli ürün kodunu* ve *5 haneli gramaj bilgisini* ayıklayarak sepete gramajlı/kuruşlu olarak yansıtır.
+- **Hatalı Çift Okutma Koruması (Debounce):** Barkod okuyucunun el titremesi veya mekanik hatalardan ötürü aynı barkodu çok kısa süre (ms) içinde iki kez okutmasını otomatik olarak engeller.
+- **Stok Limit Uyarısı ve Kontrolü:** Satış esnasında sepete eklenen miktar eldeki mevcut stoğu aşarsa kasiyere şık bir uyarı penceresi gösterilir (Eksi stoka düşme uyarısı).
+- **Veritabanı Koruma & Otomatik Yedekleme:** Sistem, kilitlenmeleri önlemek için **WAL (Write-Ahead Logging)** moduyla çalışır. Program her açıldığında son 7 günün yedeğini `AutoBackups` klasörüne otomatik olarak kopyalar.
 
 ---
 
 ## 8. Geliştirici & Teknik Notlar
 
-Uygulamanın kaynak kod yapısı kolay okunabilirlik, bakım ve modülerlik amacıyla katmanlı mimariye dönüştürülmüştür. Visual Studio veya VS Code üzerinde şu klasör hiyerarşisi takip edilebilir:
+Uygulamanın kaynak kod yapısı kolay okunabilirlik, bakım ve modülerlik amacıyla katmanlı mimariye (MVVM) dönüştürülmüştür. 
 
-- **📁 Services (İş Mantığı Katmanı):** `DatabaseManager.cs`, `CartManager.cs`, `PrinterManager.cs`, `ProductManager.cs`, `ReportManager.cs`, `SettingsManager.cs`
-- **📁 Models (Veri Modelleri):** `Models.cs` (Product, SaleItem, User, ZReport vb. veri yapıları)
-- **📁 Utils (Yardımcı Araçlar):** `BarcodeListener.cs` (Klavye kancası / 50ms algoritması), `ProductImporter.cs` (Excel veri okuyucu)
-- **📁 Views (Arayüz Katmanı):** `MainWindow.xaml` (Ana Ekran), `Theme.xaml` (Tasarım Sistemi) ve diğer tüm ekran tasarımları.
+- **İş Mantığı (Services):** Veritabanı (SQLite), Sepet, Yazdırma, Ayar ve Rapor işlemleri ayrı yöneticilere (Managers) bölünmüştür.
+- **Güvenlik (Obfuscar):** Nihai uygulamanın kodları (EXE/DLL), tersine mühendisliğe (Decompile) karşı kaynak kod gizleme (Obfuscation) aracıyla şifrelenmiştir.
+- **Arayüz (Views):** Kullanıcı deneyimi, ekranı ortalayan (CenterOwner) diyalog pencereleri ve WPF Theme.xaml standartlarıyla modernleştirilmiştir.
 
 ---
 **Envisionary Marketing POS** ile mağazanızı dijitalleştirin, açık vermeyin, işinize odaklanın! İyi çalışmalar dileriz.
