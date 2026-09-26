@@ -1,0 +1,128 @@
+<Window x:Class="PosApp.Views.PaymentDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ödeme İşlemi"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        FontFamily="{DynamicResource FontBody}">
+    
+    <Border Background="{DynamicResource ColorSurface}" CornerRadius="{DynamicResource RadiusXl}" Margin="32" Padding="32" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1">
+        <Border.Effect>
+            <DropShadowEffect Color="Black" Opacity="0.15" BlurRadius="30" ShadowDepth="10"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Header -->
+            <Grid Grid.Row="0" Margin="0 0 0 32">
+                <TextBlock x:Name="TxtHeaderTitle" Text="Ödeme Yöntemi Seçimi" FontFamily="{DynamicResource FontHeadline}" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource ColorTextPrimary}"/>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" Height="36" Background="Transparent" BorderThickness="0" Click="BtnCancel_Click" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="CloseBdr" Background="Transparent" CornerRadius="18">
+                                <TextBlock Text="✕" Foreground="{DynamicResource ColorTextSecondary}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="CloseBdr" Property="Background" Value="#F3F4F6"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+            
+            <!-- Total Amount -->
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" Margin="0 0 0 40">
+                <TextBlock Text="TOPLAM ÖDENECEK TUTAR" Foreground="{DynamicResource ColorTextSecondary}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0 0 0 8"/>
+                <TextBlock x:Name="TxtTotalAmount" Text="₺0.00" FontFamily="{DynamicResource FontHeadline}" FontSize="48" FontWeight="Black" Foreground="{DynamicResource ColorTextPrimary}" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- STEP 1: Payment Method Selection -->
+            <Grid x:Name="Step1Grid" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Column="0" Margin="8" Tag="Nakit" Click="BtnMethodNakit_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="Bg" Background="{DynamicResource ColorBackground}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="2" CornerRadius="{DynamicResource RadiusLg}">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Text="💵" FontSize="48" HorizontalAlignment="Center" Margin="0 0 0 16"/>
+                                    <TextBlock Text="Nakit" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource ColorTextPrimary}" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Bg" Property="BorderBrush" Value="{DynamicResource ColorPrimary}"/>
+                                    <Setter TargetName="Bg" Property="Background" Value="#F2EDE4"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button Grid.Column="1" Margin="8" Tag="Kredi Kartı" Click="BtnMethodKart_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="Bg" Background="{DynamicResource ColorBackground}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="2" CornerRadius="{DynamicResource RadiusLg}">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Text="💳" FontSize="48" HorizontalAlignment="Center" Margin="0 0 0 16"/>
+                                    <TextBlock Text="Kredi Kartı" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource ColorTextPrimary}" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Bg" Property="BorderBrush" Value="{DynamicResource ColorPrimary}"/>
+                                    <Setter TargetName="Bg" Property="Background" Value="#F2EDE4"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+
+            <!-- STEP 2: Cash Payment Details (Hidden by default) -->
+            <Grid x:Name="Step2Grid" Grid.Row="2" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Border Background="{DynamicResource ColorBackground}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1" CornerRadius="{DynamicResource RadiusMd}" Padding="32">
+                    <StackPanel>
+                        <TextBlock Text="MÜŞTERİNİN VERDİĞİ NAKİT" Foreground="{DynamicResource ColorTextSecondary}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0 0 0 12"/>
+                        <TextBox x:Name="TxtGivenAmount" Style="{DynamicResource ModernTextBoxStyle}" Width="250" Height="64" FontSize="32" FontWeight="Bold" TextAlignment="Center" TextChanged="TxtGivenAmount_TextChanged" Text="0" Padding="0 10" BorderBrush="{DynamicResource ColorPrimary}" BorderThickness="2"/>
+                        
+                        <Border Background="#E8F0FE" CornerRadius="{DynamicResource RadiusMd}" Padding="16" Margin="0 24 0 0">
+                            <StackPanel>
+                                <TextBlock Text="İADE EDİLECEK PARA ÜSTÜ" Foreground="{DynamicResource ColorTextSecondary}" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0 0 0 4"/>
+                                <TextBlock x:Name="TxtChangeAmount" Text="₺0.00" FontFamily="{DynamicResource FontHeadline}" FontSize="36" FontWeight="Black" Foreground="{DynamicResource ColorSuccess}" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Grid Margin="0 32 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Geri Dön" Style="{DynamicResource OutlineButtonStyle}" Height="56" FontSize="18" Margin="0 0 8 0" Click="BtnBackToMethods_Click"/>
+                            <Button x:Name="BtnCompleteCash" Grid.Column="1" Content="Ödemeyi Tamamla" Style="{DynamicResource SuccessButtonStyle}" Height="56" FontSize="18" FontWeight="Bold" Margin="8 0 0 0" IsEnabled="False" Click="BtnCompleteCash_Click"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            
+            <TextBlock Grid.Row="3" Margin="0 32 0 0" HorizontalAlignment="Center">
+                <Hyperlink Foreground="{DynamicResource ColorTextSecondary}" TextDecorations="None" Click="BtnCancel_Click" FontSize="16" FontWeight="SemiBold">
+                    Vazgeç ve Alışverişe Dön
+                </Hyperlink>
+            </TextBlock>
+        </Grid>
+    </Border>
+</Window>

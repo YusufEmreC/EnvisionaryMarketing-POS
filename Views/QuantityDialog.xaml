@@ -1,0 +1,73 @@
+<Window x:Class="PosApp.Views.QuantityDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Miktar Giriniz" Height="500" Width="350"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Border Background="{DynamicResource ColorSurface}" CornerRadius="16" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1">
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="20" Opacity="0.1" ShadowDepth="4"/>
+        </Border.Effect>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="TxtTitle" Text="Miktar Giriniz (KG)" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource ColorOnSurface}" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+            <TextBlock x:Name="TxtProductName" Text="Ürün Adı" FontSize="16" Foreground="{DynamicResource ColorOnSurfaceVariant}" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,20" TextWrapping="Wrap" TextAlignment="Center"/>
+
+            <StackPanel Grid.Row="2" VerticalAlignment="Center">
+                <Border Background="{DynamicResource ColorBackground}" CornerRadius="8" BorderThickness="1" BorderBrush="{DynamicResource ColorBorder}" Padding="10">
+                    <TextBox x:Name="TxtQuantity" FontSize="36" FontWeight="Bold" Foreground="{DynamicResource ColorPrimary}" TextAlignment="Center" Background="Transparent" BorderThickness="0" Text="" SelectionStart="0" Focusable="True" TextChanged="TxtQuantity_TextChanged" KeyDown="TxtQuantity_KeyDown"/>
+                </Border>
+
+                <!-- Numpad -->
+                <Grid Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="55"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="0" Content="7" Style="{DynamicResource SecondaryButtonStyle}" Margin="4" FontSize="20" FontWeight="Bold" Click="Numpad_Click"/>
+                    <Button Grid.Row="0" Grid.Column="1" Content="8" Style="{DynamicResource SecondaryButtonStyle}" Margin="4" FontSize="20" FontWeight="Bold" Click="Numpad_Click"/>
+                    <Button Grid.Row="0" Grid.Column="2" Content="9" Style="{DynamicResource SecondaryButtonStyle}" Margin="4" FontSize="20" FontWeight="Bold" Click="Numpad_Click"/>
+
+                    <Button Grid.Row="1" Grid.Column="0" Content="4" Style="{DynamicResource SecondaryButtonStyle}" Margin="4" FontSize="20" FontWeight="Bold" Click="Numpad_Click"/>
+                    <Button Grid.Row="1" Grid.Column="1" Content="5" Style="{DynamicResource SecondaryButtonStyle}" Margin="4" FontSize="20" FontWeight="Bold" Click="Numpad_Click"/>
+                    <Button Grid.Row="1" Grid.Column="2" Content="6" Style="{DynamicResource SecondaryButtonStyle}" Margin="4" FontSize="20" FontWeight="Bold" Click="Numpad_Click"/>
+
+                    <Button Grid.Row="2" Grid.Column="0" Content="1" Style="{DynamicResource SecondaryButtonStyle}" Margin="4" FontSize="20" FontWeight="Bold" Click="Numpad_Click"/>
+                    <Button Grid.Row="2" Grid.Column="1" Content="2" Style="{DynamicResource SecondaryButtonStyle}" Margin="4" FontSize="20" FontWeight="Bold" Click="Numpad_Click"/>
+                    <Button Grid.Row="2" Grid.Column="2" Content="3" Style="{DynamicResource SecondaryButtonStyle}" Margin="4" FontSize="20" FontWeight="Bold" Click="Numpad_Click"/>
+
+                    <Button Grid.Row="3" Grid.Column="0" Content="," Style="{DynamicResource SecondaryButtonStyle}" Margin="4" FontSize="24" FontWeight="Bold" Click="Numpad_Click"/>
+                    <Button Grid.Row="3" Grid.Column="1" Content="0" Style="{DynamicResource SecondaryButtonStyle}" Margin="4" FontSize="20" FontWeight="Bold" Click="Numpad_Click"/>
+                    <Button Grid.Row="3" Grid.Column="2" Content="⌫" Style="{DynamicResource DeleteButtonStyle}" Margin="4" FontSize="20" FontWeight="Bold" Click="BtnDelete_Click"/>
+                </Grid>
+            </StackPanel>
+
+            <Grid Grid.Row="3" Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="İptal" Style="{DynamicResource OutlineButtonStyle}" Height="45" FontSize="16" Click="BtnCancel_Click"/>
+                <Button Grid.Column="2" Content="Tamam" Style="{DynamicResource PrimaryButtonStyle}" Height="45" FontSize="16" Click="BtnOK_Click" IsDefault="True"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

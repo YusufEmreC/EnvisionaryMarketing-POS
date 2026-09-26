@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Konsol penceresini gizleyip sadece UI gösterecek mod -->
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <!-- WPF Arayüzünü aktif et -->
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x64</Platforms>
+    <!-- Bağımsız çalışabilmesi ve kurulum sihirbazına (Inno Setup) tek exe olarak verilebilmesi için -->
+    <SelfContained>false</SelfContained>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <AssemblyName>EnvisionaryMarketing</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Sunucusuz dahili veritabanı paketi -->
+    <PackageReference Include="Obfuscar" Version="2.2.50">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
+    <!-- Excel Okuma Kütüphanesi -->
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\**" />
+  </ItemGroup>
+
+  <Target Name="Obfuscate" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">
+    <ItemGroup>
+      <SearchPaths Include="@(ReferencePath->'%(RootDir)%(Directory)')" />
+      <UniqueSearchPaths Include="@(SearchPaths->Distinct())" />
+    </ItemGroup>
+    <PropertyGroup>
+      <ObfuscarConfig>
+&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;Obfuscator&gt;
+  &lt;Var name="InPath" value="." /&gt;
+  &lt;Var name="OutPath" value=".\Obfuscated" /&gt;
+  &lt;Var name="KeepPublicApi" value="true" /&gt;
+  &lt;Var name="HidePrivateApi" value="false" /&gt;
+  &lt;Var name="HideStrings" value="true" /&gt;
+  &lt;Var name="RenameFields" value="false" /&gt;
+  &lt;Var name="RenameProperties" value="false" /&gt;
+  &lt;Var name="RenameEvents" value="false" /&gt;
+  &lt;Var name="SuppressIldasm" value="true" /&gt;
+
+  @(UniqueSearchPaths-&gt;'&lt;AssemblySearchPath path="%(Identity)" /&gt;', '%0a')
+
+  &lt;Module file=".\EnvisionaryMarketing.dll" /&gt;
+&lt;/Obfuscator&gt;
+      </ObfuscarConfig>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(TargetDir)obfuscar.xml" Lines="$(ObfuscarConfig)" Overwrite="true" />
+    <Exec Command="$(Obfuscar) &quot;$(TargetDir)obfuscar.xml&quot;" WorkingDirectory="$(TargetDir)" />
+    <Copy SourceFiles="$(TargetDir)Obfuscated\EnvisionaryMarketing.dll" DestinationFolder="$(TargetDir)" />
+    <RemoveDir Directories="$(TargetDir)Obfuscated" />
+  </Target>
+
+</Project>

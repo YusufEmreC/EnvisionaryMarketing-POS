@@ -1,0 +1,272 @@
+<UserControl x:Class="PosApp.Views.UsersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{DynamicResource ColorSurfaceContainerLowest}" FontFamily="{DynamicResource FontBody}">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <!-- Card Style -->
+        <Style TargetType="Border" x:Key="CardStyle">
+            <Setter Property="Background" Value="{StaticResource ColorSurfaceContainerLowest}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorOutlineVariant}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="24"/>
+            <Setter Property="Margin" Value="0,0,0,24"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#E1E5EB" BlurRadius="6" ShadowDepth="1" Opacity="0.5"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="ModernTextBox">
+            <Setter Property="Background" Value="{DynamicResource ColorSurfaceBright}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ColorOnSurface}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ColorOutlineVariant}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="Height" Value="44"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8" x:Name="Bg">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Bg" Property="BorderBrush" Value="#3B82F6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="PasswordBox" x:Key="ModernPasswordBox">
+            <Setter Property="Background" Value="{DynamicResource ColorSurfaceBright}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ColorOnSurface}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ColorOutlineVariant}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="Height" Value="44"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8" x:Name="Bg">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Bg" Property="BorderBrush" Value="#3B82F6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid MaxWidth="1000" HorizontalAlignment="Left" Margin="32">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Başlık -->
+            <StackPanel Grid.Row="0" Margin="0 0 0 32">
+                <TextBlock Text="Kullanıcı Yönetimi" FontFamily="{DynamicResource FontHeadline}" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource ColorPrimary}" Margin="0 0 0 8"/>
+                <TextBlock Text="Sisteme kayıtlı Kasiyer ve Admin hesaplarını yönetin." Foreground="{DynamicResource ColorOnSurfaceVariant}" FontSize="16"/>
+            </StackPanel>
+
+            <!-- YENİ KULLANICI EKLE -->
+            <Border Grid.Row="1" Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 16">
+                        <Border Background="#DBEAFE" CornerRadius="16" Width="32" Height="32" Margin="0 0 12 0">
+                            <TextBlock Text="👤" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Yeni Kasiyer Ekle" FontFamily="{DynamicResource FontBody}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource ColorOnSurface}" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="44 0 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <!-- Kullanıcı Adı -->
+                            <StackPanel Margin="0 0 16 0">
+                                <TextBlock Text="Kullanıcı Adı" Foreground="{DynamicResource ColorOnSurfaceVariant}" FontSize="12" Margin="0 0 0 4"/>
+                                <TextBox x:Name="TxtNewCashierUsername" Text="{Binding NewUsername, UpdateSourceTrigger=PropertyChanged}" Width="220" Style="{StaticResource ModernTextBox}" ToolTip="Yeni kasiyerin giriş yapacağı kullanıcı adı"/>
+                            </StackPanel>
+                            
+                            <!-- Şifre -->
+                            <StackPanel Margin="0 0 24 0">
+                                <TextBlock Text="Geçici Şifre" Foreground="{DynamicResource ColorOnSurfaceVariant}" FontSize="12" Margin="0 0 0 4"/>
+                                <PasswordBox x:Name="TxtNewCashierPassword" Width="220" Style="{StaticResource ModernPasswordBox}" ToolTip="Kasiyerin sisteme giriş yapacağı şifre"/>
+                            </StackPanel>
+
+                            <!-- Ekle Butonu -->
+                            <Button Height="44" Width="140" Margin="0 20 0 0" Background="#3B82F6" Foreground="White" BorderThickness="0" Click="BtnAddCashier_Click" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="8" x:Name="Bg">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Text="➕" FontSize="14" VerticalAlignment="Center" Margin="0 0 6 0"/>
+                                                <TextBlock Text="Kasiyer Ekle" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Bg" Property="Background" Value="#2563EB"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- KULLANICI DÜZENLEME FORMU -->
+            <Border x:Name="EditPanel" Grid.Row="2" Style="{StaticResource CardStyle}" Visibility="{Binding IsEditPanelVisible, Converter={StaticResource BoolToVis}}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 16">
+                        <Border Background="#FEF3C7" CornerRadius="16" Width="32" Height="32" Margin="0 0 12 0">
+                            <TextBlock Text="✏️" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Kullanıcıyı Düzenle" FontFamily="{DynamicResource FontBody}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource ColorOnSurface}" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="44 0 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <!-- Kullanıcı Adı -->
+                            <StackPanel Margin="0 0 16 0">
+                                <TextBlock Text="Kullanıcı Adı" Foreground="{DynamicResource ColorOnSurfaceVariant}" FontSize="12" Margin="0 0 0 4"/>
+                                <TextBox x:Name="TxtEditUsername" Text="{Binding EditUsername, UpdateSourceTrigger=PropertyChanged}" Width="220" Style="{StaticResource ModernTextBox}" ToolTip="Kullanıcı adı"/>
+                            </StackPanel>
+                            
+                            <!-- Yeni Şifre -->
+                            <StackPanel Margin="0 0 24 0">
+                                <TextBlock Text="Yeni Şifre (Boş = Değişmez)" Foreground="{DynamicResource ColorOnSurfaceVariant}" FontSize="12" Margin="0 0 0 4"/>
+                                <PasswordBox x:Name="TxtEditPassword" Width="220" Style="{StaticResource ModernPasswordBox}" ToolTip="Şifreyi değiştirmek için doldurun"/>
+                            </StackPanel>
+
+                            <!-- Kaydet Butonu -->
+                            <Button Height="44" Width="140" Margin="0 20 8 0" Background="#10B981" Foreground="White" BorderThickness="0" Click="BtnSaveEdit_Click" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="8" x:Name="Bg">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Text="💾" FontSize="14" VerticalAlignment="Center" Margin="0 0 6 0"/>
+                                                <TextBlock Text="Kaydet" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Bg" Property="Background" Value="#059669"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            
+                            <!-- İptal Butonu -->
+                            <Button Height="44" Width="100" Margin="0 20 0 0" Background="#9CA3AF" Foreground="White" BorderThickness="0" Command="{Binding CancelEditCommand}" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="8" x:Name="Bg">
+                                            <TextBlock Text="İptal" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Bg" Property="Background" Value="#6B7280"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- KULLANICI LİSTESİ -->
+            <Border Grid.Row="3" Style="{StaticResource CardStyle}" VerticalAlignment="Top">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 16">
+                        <Border Background="#F3F4F6" CornerRadius="16" Width="32" Height="32" Margin="0 0 12 0">
+                            <TextBlock Text="📋" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Mevcut Kullanıcılar" FontFamily="{DynamicResource FontBody}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource ColorOnSurface}" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="DgUsers" ItemsSource="{Binding UsersList}" AutoGenerateColumns="False" CanUserAddRows="False" 
+                              Background="White" RowHeight="50" HeadersVisibility="Column" 
+                              BorderBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="1"
+                              HorizontalGridLinesBrush="#E5E7EB" VerticalGridLinesBrush="Transparent">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#F9FAFB"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Padding" Value="16,12"/>
+                                <Setter Property="BorderBrush" Value="#E5E7EB"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Kullanıcı Adı" Binding="{Binding Username}" Width="250" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Yetki (Rol)" Binding="{Binding Role}" Width="150" IsReadOnly="True"/>
+                            <DataGridTemplateColumn Header="İşlemler" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="✏️ Düzenle" Background="#F59E0B" Foreground="White" BorderThickness="0" Padding="12 6" Margin="0 0 8 0" Click="BtnEditUser_Click" Cursor="Hand">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}" x:Name="Bg">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter TargetName="Bg" Property="Background" Value="#D97706"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+                                            
+                                            <Button Content="🗑️ Sil" Background="#DC2626" Foreground="White" BorderThickness="0" Padding="12 6" Margin="0 0 8 0" Click="BtnDeleteUser_Click" Cursor="Hand">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}" x:Name="Bg">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter TargetName="Bg" Property="Background" Value="#B91C1C"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

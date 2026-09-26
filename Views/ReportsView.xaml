@@ -1,0 +1,273 @@
+<UserControl x:Class="PosApp.Views.ReportsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{DynamicResource ColorSurfaceContainerLowest}" FontFamily="{DynamicResource FontBody}">
+
+    <UserControl.Resources>
+        <!-- KPI Card Style -->
+        <Style TargetType="Border" x:Key="KpiCardStyle">
+            <Setter Property="Background" Value="{StaticResource ColorSurfaceContainerLowest}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorOutlineVariant}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,16,0"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#E1E5EB" BlurRadius="6" ShadowDepth="1" Opacity="0.5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="24">
+        <Grid Margin="0 0 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/> <!-- Chart -->
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+        <!-- TOP HEADER -->
+        <Border Grid.Row="0" Background="{DynamicResource ColorSurfaceContainerLowest}" BorderBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="1" CornerRadius="12" Padding="24" Margin="0 0 0 16">
+            <Border.Effect><DropShadowEffect Color="#E1E5EB" BlurRadius="6" ShadowDepth="1" Opacity="0.5"/></Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Günlük Performans Özeti" FontFamily="{DynamicResource FontHeadline}" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource ColorOnSurface}" Margin="0 0 0 4"/>
+                    <TextBlock Text="Seçilen tarihe ait ciro, kâr ve trend verileri." Foreground="{DynamicResource ColorOnSurfaceVariant}" FontSize="14"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Background="{DynamicResource ColorSurfaceContainerLow}" BorderBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="1" CornerRadius="8" Padding="12 8" Margin="0 0 16 0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="📅" Foreground="{DynamicResource ColorOutlineVariant}" FontSize="16" VerticalAlignment="Center" Margin="0 0 8 0"/>
+                            <TextBlock Text="Tarih:" Foreground="{DynamicResource ColorOnSurfaceVariant}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0 0 8 0"/>
+                            <DatePicker x:Name="DpReportDate" SelectedDate="{Binding SelectedDate, Mode=TwoWay}" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Button Style="{DynamicResource OutlineButtonStyle}" Height="44" Padding="16 0" Margin="0 0 8 0" Click="BtnClearData_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🗑️" FontSize="14" VerticalAlignment="Center" Margin="0 0 8 0"/>
+                            <TextBlock Text="Geçmişi Sil" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center" Foreground="{DynamicResource ColorError}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{DynamicResource PrimaryButtonStyle}" Height="44" Padding="16 0" Command="{Binding LoadDataCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🔄 " FontSize="14" VerticalAlignment="Center"/>
+                            <TextBlock Text="Verileri Yükle" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- KPI CARDS -->
+        <Grid Grid.Row="1" Margin="0 0 0 16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Ciro -->
+            <Border Grid.Column="0" Style="{StaticResource KpiCardStyle}">
+                <StackPanel>
+                    <TextBlock Text="TOPLAM CİRO" Foreground="{DynamicResource ColorOnSurfaceVariant}" FontWeight="Bold" FontSize="11" Margin="0 0 0 8"/>
+                    <TextBlock x:Name="TxtTotalRevenue" Text="{Binding Stats.TotalRevenue, StringFormat=C2}" Foreground="{DynamicResource ColorOnSurface}" FontFamily="{DynamicResource FontHeadline}" FontWeight="Bold" FontSize="24"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Nakit -->
+            <Border Grid.Column="1" Style="{StaticResource KpiCardStyle}">
+                <StackPanel>
+                    <TextBlock Text="NAKİT HACMİ" Foreground="{DynamicResource ColorOnSurfaceVariant}" FontWeight="Bold" FontSize="11" Margin="0 0 0 8"/>
+                    <TextBlock x:Name="TxtCashVolume" Text="{Binding Stats.CashVolume, StringFormat=C2}" Foreground="{DynamicResource ColorSuccess}" FontFamily="{DynamicResource FontHeadline}" FontWeight="Bold" FontSize="24"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Kart -->
+            <Border Grid.Column="2" Style="{StaticResource KpiCardStyle}">
+                <StackPanel>
+                    <TextBlock Text="KART HACMİ" Foreground="{DynamicResource ColorOnSurfaceVariant}" FontWeight="Bold" FontSize="11" Margin="0 0 0 8"/>
+                    <TextBlock x:Name="TxtCardVolume" Text="{Binding Stats.CardVolume, StringFormat=C2}" Foreground="{DynamicResource ColorPrimaryContainer}" FontFamily="{DynamicResource FontHeadline}" FontWeight="Bold" FontSize="24"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Net Kar -->
+            <Border Grid.Column="3" Style="{StaticResource KpiCardStyle}">
+                <StackPanel>
+                    <TextBlock Text="NET KÂR" Foreground="{DynamicResource ColorOnSurfaceVariant}" FontWeight="Bold" FontSize="11" Margin="0 0 0 8"/>
+                    <TextBlock x:Name="TxtNetProfit" Text="{Binding Stats.NetProfit, StringFormat=C2}" Foreground="{DynamicResource ColorSuccess}" FontFamily="{DynamicResource FontHeadline}" FontWeight="Bold" FontSize="24"/>
+                </StackPanel>
+            </Border>
+
+            <!-- İşlem Sayısı -->
+            <Border Grid.Column="4" Style="{StaticResource KpiCardStyle}" Margin="0">
+                <StackPanel>
+                    <TextBlock Text="İŞLEM SAYISI" Foreground="{DynamicResource ColorOnSurfaceVariant}" FontWeight="Bold" FontSize="11" Margin="0 0 0 8"/>
+                    <TextBlock x:Name="TxtTransactionCount" Text="{Binding Stats.TransactionCount}" Foreground="{DynamicResource ColorOnSurface}" FontFamily="{DynamicResource FontHeadline}" FontWeight="Bold" FontSize="24"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- CHART MOCKUP -->
+        <Border Grid.Row="2" Background="{DynamicResource ColorSurfaceContainerLowest}" BorderBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="1" CornerRadius="12" Padding="24" Margin="0 0 0 16">
+            <StackPanel>
+                <TextBlock Text="Son 30 Günlük Satış Trendi" FontFamily="{DynamicResource FontHeadline}" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource ColorOnSurface}" Margin="0 0 0 16"/>
+                <Grid Height="180">
+                    <!-- Y Axis Lines -->
+                    <Border BorderBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="0 1 0 0" VerticalAlignment="Top"/>
+                    <Border BorderBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="0 1 0 0" VerticalAlignment="Center"/>
+                    <Border BorderBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="0 1 0 0" VerticalAlignment="Bottom"/>
+                    
+                    <!-- Bars -->
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <StackPanel x:Name="ChartBarsPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <!-- Bars will be generated dynamically -->
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- DATA TABLES -->
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0 0 10 0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+            <!-- Top 10 Products -->
+            <Border Grid.Column="0" Background="{DynamicResource ColorSurfaceContainerLowest}" BorderBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="1" CornerRadius="12" ClipToBounds="True" VerticalAlignment="Top">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Border Grid.Row="0" Background="{DynamicResource ColorSurfaceContainerLowest}" BorderBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="0 0 0 1" Padding="16">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🏆 " FontSize="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="En Çok Satan 10 Ürün" FontFamily="{DynamicResource FontHeadline}" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource ColorOnSurface}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <DataGrid x:Name="DgTopProducts" ItemsSource="{Binding TopProducts}" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                              HeadersVisibility="Column" Background="Transparent" RowBackground="Transparent" RowHeight="48"
+                              AlternatingRowBackground="{DynamicResource ColorSurface}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="0" FontSize="13">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#F1F5F9"/>
+                                <Setter Property="Foreground" Value="#475569"/>
+                                <Setter Property="FontFamily" Value="{DynamicResource FontBody}"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Padding" Value="16,12"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource ColorOutlineVariant}"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            </Style>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Padding" Value="16,10"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="DataGridCell">
+                                            <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#F8FAFC"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ÜRÜN ADI" Binding="{Binding Name}" Width="3*"/>
+                            <DataGridTextColumn Header="BARKOD" Binding="{Binding Barcode}" Width="2*" Foreground="{DynamicResource ColorOnSurfaceVariant}"/>
+                            <DataGridTextColumn Header="SATILAN" Binding="{Binding TotalSold}" Width="1*"/>
+                            <DataGridTextColumn Header="CİRO" Binding="{Binding TotalRevenue, StringFormat=C2}" Width="1.5*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <!-- 7 Day Performance -->
+            <Border Grid.Column="2" Background="{DynamicResource ColorSurfaceContainerLowest}" BorderBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="1" CornerRadius="12" ClipToBounds="True" VerticalAlignment="Top">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Border Grid.Row="0" Background="{DynamicResource ColorSurfaceContainerLowest}" BorderBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="0 0 0 1" Padding="16">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="📊 " FontSize="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="Son 7 Günlük Performans" FontFamily="{DynamicResource FontHeadline}" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource ColorOnSurface}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <DataGrid x:Name="DgWeeklyPerformance" ItemsSource="{Binding DailyPerformances}" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                              HeadersVisibility="Column" Background="Transparent" RowBackground="Transparent" RowHeight="48"
+                              AlternatingRowBackground="{DynamicResource ColorSurface}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="0" FontSize="13">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#F1F5F9"/>
+                                <Setter Property="Foreground" Value="#475569"/>
+                                <Setter Property="FontFamily" Value="{DynamicResource FontBody}"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Padding" Value="16,12"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource ColorOutlineVariant}"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            </Style>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Padding" Value="16,10"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="DataGridCell">
+                                            <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#F8FAFC"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="TARİH" Binding="{Binding DateString}" Width="1.5*"/>
+                            <DataGridTextColumn Header="FİŞ" Binding="{Binding ReceiptCount}" Width="1*"/>
+                            <DataGridTextColumn Header="TOPLAM CİRO" Binding="{Binding TotalRevenue, StringFormat=C2}" Width="2*" FontWeight="SemiBold"/>
+                            <DataGridTextColumn Header="NAKİT" Binding="{Binding CashVolume, StringFormat=C2}" Width="1.5*" Foreground="{DynamicResource ColorOnSurfaceVariant}"/>
+                            <DataGridTextColumn Header="KART" Binding="{Binding CardVolume, StringFormat=C2}" Width="1.5*" Foreground="{DynamicResource ColorOnSurfaceVariant}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+            </Grid>
+        </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Obfuscator>
+  <Var name="InPath" value="." />
+  <Var name="OutPath" value=".\Obfuscated" />
+  
+  <Var name="KeepPublicApi" value="true" />
+  <Var name="HidePrivateApi" value="false" />
+  <Var name="HideStrings" value="true" />
+  <Var name="RenameFields" value="false" />
+  <Var name="RenameProperties" value="false" />
+  <Var name="RenameEvents" value="false" />
+  <Var name="SuppressIldasm" value="true" />
+
+  <Module file="$(InPath)\EnvisionaryMarketing.dll" />
+</Obfuscator>

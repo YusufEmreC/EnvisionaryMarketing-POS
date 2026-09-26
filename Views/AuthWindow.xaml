@@ -1,0 +1,247 @@
+<Window x:Class="PosApp.Views.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ENVISIONARY Marketing - Giriş" Height="850" Width="550"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        FontFamily="{DynamicResource FontBody}"
+        Icon="pack://application:,,,/Assets/app.ico">
+    
+    <!-- Ana Arka Plan ve Çerçeve -->
+    <Border CornerRadius="{DynamicResource RadiusXl}" Background="{DynamicResource ColorBackground}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1" MouseLeftButtonDown="Window_MouseDown">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid Margin="32">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Close Button -->
+                <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="32" Height="32" 
+                        Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ColorTextSecondary}" FontSize="18" FontWeight="Bold"
+                        Content="✕" Click="BtnClose_Click" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="16">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#E5E7EB"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource ColorError}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <!-- Header -->
+                <StackPanel Grid.Row="0" Margin="0 32 0 40">
+                    <Image Source="pack://application:,,,/Assets/app_logo.png" Height="112" HorizontalAlignment="Center" Margin="0 0 0 28"/>
+                    
+                    <TextBlock Text="ENVISIONARY Marketing" FontFamily="{DynamicResource FontHeadline}" FontSize="32" FontWeight="Bold" Foreground="{DynamicResource ColorTextPrimary}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Market POS Sistemi" FontFamily="{DynamicResource FontBody}" FontWeight="SemiBold" FontSize="18" Foreground="{DynamicResource ColorPrimary}" HorizontalAlignment="Center" Margin="0 4 0 0"/>
+                    
+                    <TextBlock x:Name="TxtSubtitle" Text="Lütfen devam etmek için bilgilerinizi girin." FontFamily="{DynamicResource FontBody}" FontSize="14" Foreground="{DynamicResource ColorTextSecondary}" HorizontalAlignment="Center" Margin="0 16 0 0" TextWrapping="Wrap" TextAlignment="Center" MaxWidth="300"/>
+                </StackPanel>
+
+                <!-- Login Panel -->
+                <StackPanel x:Name="LoginPanel" Grid.Row="1" Visibility="Visible">
+                    <TextBlock Text="Kullanıcı Adı" Foreground="{DynamicResource ColorTextSecondary}" FontWeight="SemiBold" FontSize="13" Margin="4 0 0 6"/>
+                    <Border CornerRadius="{DynamicResource RadiusMd}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1" Background="{DynamicResource ColorSurface}" Height="48" Margin="0 0 0 20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="👤" Foreground="{DynamicResource ColorTextSecondary}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="TxtLoginUsername" Grid.Column="1" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ColorTextPrimary}" FontSize="16" FontFamily="{DynamicResource FontBody}" Padding="0 0 16 0" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    
+                    <TextBlock Text="Şifre" Foreground="{DynamicResource ColorTextSecondary}" FontWeight="SemiBold" FontSize="13" Margin="4 0 0 6"/>
+                    <Border CornerRadius="{DynamicResource RadiusMd}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1" Background="{DynamicResource ColorSurface}" Height="48" Margin="0 0 0 32">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="🔒" Foreground="{DynamicResource ColorTextSecondary}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <PasswordBox x:Name="TxtLoginPassword" Grid.Column="1" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ColorTextPrimary}" FontSize="16" FontFamily="{DynamicResource FontBody}" Padding="0 0 16 0" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    
+                    <Button Content="Giriş Yap" Style="{DynamicResource PrimaryButtonStyle}" Click="BtnLogin_Click"/>
+                    
+                    <TextBlock Margin="0 24 0 0" HorizontalAlignment="Center">
+                        <Hyperlink Foreground="{DynamicResource ColorPrimary}" TextDecorations="None" Click="LnkForgotPassword_Click">
+                            Şifremi Unuttum
+                        </Hyperlink>
+                    </TextBlock>
+                    
+                    <TextBlock Margin="0 12 0 0" HorizontalAlignment="Center">
+                        <Hyperlink Foreground="{DynamicResource ColorTextSecondary}" TextDecorations="None" Click="LnkSupportAccess_Click" FontSize="12">
+                            🛟 Geliştirici Destek Girişi
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+
+                <!-- Welcome Panel -->
+                <StackPanel x:Name="WelcomePanel" Grid.Row="1" Visibility="Collapsed">
+                    <TextBlock Text="Yeni Nesil Mağazacılık Deneyimi" Foreground="{DynamicResource ColorPrimary}" FontWeight="Bold" FontSize="18" Margin="0 0 0 16" HorizontalAlignment="Center"/>
+                    
+                    <TextBlock Text="ENVISIONARY Marketing ile işletmenizi büyütmek artık çok daha kolay. Sizi neler bekliyor?" Foreground="{DynamicResource ColorTextSecondary}" FontSize="14" TextWrapping="Wrap" Margin="0 0 0 24" TextAlignment="Center"/>
+                    
+                    <StackPanel Margin="16 0 0 32">
+                        <TextBlock Text="🚀 Hızlı ve Kesintisiz Kasa İşlemleri" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource ColorTextPrimary}" Margin="0 0 0 8"/>
+                        <TextBlock Text="📦 Gelişmiş Stok ve Envanter Takibi" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource ColorTextPrimary}" Margin="0 0 0 8"/>
+                        <TextBlock Text="📊 Detaylı Z-Raporu ve Satış Analizleri" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource ColorTextPrimary}" Margin="0 0 0 8"/>
+                        <TextBlock Text="🛡️ Çift Katmanlı Otomatik Yedekleme" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource ColorTextPrimary}" Margin="0 0 0 8"/>
+                    </StackPanel>
+                    
+                    <Button Content="Kuruluma Başla" Style="{DynamicResource PrimaryButtonStyle}" Click="BtnStartSetup_Click"/>
+                </StackPanel>
+
+                <!-- Setup Panel -->
+                <StackPanel x:Name="SetupPanel" Grid.Row="1" Visibility="Collapsed">
+                    <TextBlock Text="İlk Kurulum - Firma Bilgileri" Foreground="{DynamicResource ColorPrimary}" FontWeight="Bold" FontSize="16" Margin="0 0 0 24" HorizontalAlignment="Center"/>
+                    
+                    <TextBlock Text="Firma Adı" Foreground="{DynamicResource ColorTextSecondary}" FontWeight="SemiBold" FontSize="13" Margin="4 0 0 6"/>
+                    <Border CornerRadius="{DynamicResource RadiusMd}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1" Background="{DynamicResource ColorSurface}" Height="48" Margin="0 0 0 16">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="🏢" Foreground="{DynamicResource ColorTextSecondary}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="TxtSetupCompany" Grid.Column="1" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ColorTextPrimary}" FontSize="16" FontFamily="{DynamicResource FontBody}" Padding="0 0 16 0" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    
+                    <TextBlock Text="Yönetici Kullanıcı Adı" Foreground="{DynamicResource ColorTextSecondary}" FontWeight="SemiBold" FontSize="13" Margin="4 0 0 6"/>
+                    <Border CornerRadius="{DynamicResource RadiusMd}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1" Background="{DynamicResource ColorSurface}" Height="48" Margin="0 0 0 16">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="👤" Foreground="{DynamicResource ColorTextSecondary}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="TxtSetupUsername" Grid.Column="1" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ColorTextPrimary}" FontSize="16" FontFamily="{DynamicResource FontBody}" Padding="0 0 16 0" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    
+                    <TextBlock Text="Yönetici Şifresi" Foreground="{DynamicResource ColorTextSecondary}" FontWeight="SemiBold" FontSize="13" Margin="4 0 0 6"/>
+                    <Border CornerRadius="{DynamicResource RadiusMd}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1" Background="{DynamicResource ColorSurface}" Height="48" Margin="0 0 0 16">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="🔒" Foreground="{DynamicResource ColorTextSecondary}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <PasswordBox x:Name="TxtSetupPassword" Grid.Column="1" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ColorTextPrimary}" FontSize="16" FontFamily="{DynamicResource FontBody}" Padding="0 0 16 0" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    
+                    <TextBlock Text="Kurtarma Kelimesi" Foreground="{DynamicResource ColorTextSecondary}" FontWeight="SemiBold" FontSize="13" Margin="4 0 0 2"/>
+                    <TextBlock Text="Şifrenizi unutmanız durumunda, hesabınızı kurtarmak için kullanılacaktır. Lütfen unutmayacağınız tek kelimelik bir anahtar belirleyin." Foreground="{DynamicResource ColorTextSecondary}" FontSize="12" Opacity="0.8" TextWrapping="Wrap" Margin="4 0 0 8"/>
+                    <Border CornerRadius="{DynamicResource RadiusMd}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1" Background="{DynamicResource ColorSurface}" Height="48" Margin="0 0 0 24">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="🔑" Foreground="{DynamicResource ColorTextSecondary}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="TxtSetupRecoveryWord" Grid.Column="1" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ColorTextPrimary}" FontSize="16" FontFamily="{DynamicResource FontBody}" Padding="0 0 16 0" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    
+                    <Button Content="Kurulumu Tamamla" Style="{DynamicResource PrimaryButtonStyle}" Click="BtnSetup_Click"/>
+                </StackPanel>
+
+                <!-- Forgot Password Panel -->
+                <StackPanel x:Name="ForgotPassPanel" Grid.Row="1" Visibility="Collapsed">
+                    <TextBlock Text="Şifre Sıfırlama" Foreground="{DynamicResource ColorPrimary}" FontWeight="Bold" FontSize="18" Margin="0 0 0 24" HorizontalAlignment="Center"/>
+                    
+                    <TextBlock Text="Kullanıcı Adı" Foreground="{DynamicResource ColorTextSecondary}" FontWeight="SemiBold" FontSize="13" Margin="4 0 0 6"/>
+                    <Border CornerRadius="{DynamicResource RadiusMd}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1" Background="{DynamicResource ColorSurface}" Height="48" Margin="0 0 0 16">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="👤" Foreground="{DynamicResource ColorTextSecondary}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="TxtForgotUsername" Grid.Column="1" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ColorTextPrimary}" FontSize="16" FontFamily="{DynamicResource FontBody}" Padding="0 0 16 0" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    
+                    <TextBlock Text="Kurtarma Kelimesi" Foreground="{DynamicResource ColorTextSecondary}" FontWeight="SemiBold" FontSize="13" Margin="4 0 0 6"/>
+                    <Border CornerRadius="{DynamicResource RadiusMd}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1" Background="{DynamicResource ColorSurface}" Height="48" Margin="0 0 0 16">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="🔑" Foreground="{DynamicResource ColorTextSecondary}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="TxtForgotRecoveryWord" Grid.Column="1" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ColorTextPrimary}" FontSize="16" FontFamily="{DynamicResource FontBody}" Padding="0 0 16 0" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    
+                    <TextBlock Text="Yeni Şifre" Foreground="{DynamicResource ColorTextSecondary}" FontWeight="SemiBold" FontSize="13" Margin="4 0 0 6"/>
+                    <Border CornerRadius="{DynamicResource RadiusMd}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1" Background="{DynamicResource ColorSurface}" Height="48" Margin="0 0 0 24">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="🔒" Foreground="{DynamicResource ColorTextSecondary}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <PasswordBox x:Name="TxtForgotNewPassword" Grid.Column="1" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ColorTextPrimary}" FontSize="16" FontFamily="{DynamicResource FontBody}" Padding="0 0 16 0" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    
+                    <Button Content="Şifreyi Sıfırla" Style="{DynamicResource PrimaryButtonStyle}" Click="BtnResetPassword_Click"/>
+                    
+                    <TextBlock Margin="0 24 0 0" HorizontalAlignment="Center">
+                        <Hyperlink Foreground="{DynamicResource ColorTextSecondary}" TextDecorations="None" Click="LnkBackToLogin_Click">
+                            Giriş Ekranına Dön
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+
+                <!-- Geliştirici Destek Erişim Paneli (RSA Challenge-Response) -->
+                <StackPanel x:Name="SupportPanel" Grid.Row="1" Visibility="Collapsed">
+                    <TextBlock Text="🛟 Geliştirici Destek Girişi" Foreground="{DynamicResource ColorPrimary}" FontWeight="Bold" FontSize="18" Margin="0 0 0 8" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Hem kullanıcı adınızı hem şifrenizi unuttuysanız geliştiricinizi arayın. Aşağıdaki Destek Kodunu iletin, size bir Kilit Açma Kodu verilecektir." 
+                               Foreground="{DynamicResource ColorTextSecondary}" FontSize="13" TextWrapping="Wrap" TextAlignment="Center" Margin="0 0 0 24"/>
+                    
+                    <!-- Destek Kodu -->
+                    <Border Background="{DynamicResource ColorSurfaceContainerLow}" CornerRadius="12" Padding="20" Margin="0 0 0 20" BorderBrush="{DynamicResource ColorOutlineVariant}" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="📱 BU MAKINENIN DESTEK KODU" Foreground="{DynamicResource ColorTextSecondary}" FontWeight="Bold" FontSize="11" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                            <TextBlock x:Name="TxtChallengeCode" Text="--------" FontSize="32" FontWeight="Bold" FontFamily="Consolas" HorizontalAlignment="Center" Foreground="{DynamicResource ColorPrimary}"/>
+                            <TextBlock Text="(Günlük değişir — geliştiricinize bildirin)" Foreground="{DynamicResource ColorTextSecondary}" FontSize="11" HorizontalAlignment="Center" Margin="0 8 0 0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Kilit Açma Kodu Girişi -->
+                    <TextBlock Text="Geliştirici Kilit Açma Kodu" Foreground="{DynamicResource ColorTextSecondary}" FontWeight="SemiBold" FontSize="13" Margin="4 0 0 6"/>
+                    <Border CornerRadius="{DynamicResource RadiusMd}" BorderBrush="{DynamicResource ColorBorder}" BorderThickness="1" Background="{DynamicResource ColorSurface}" MinHeight="48" Margin="0 0 0 8">
+                        <TextBox x:Name="TxtUnlockCode" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource ColorTextPrimary}" FontSize="13" FontFamily="Consolas" Padding="16 12" TextWrapping="Wrap" AcceptsReturn="False"/>
+                    </Border>
+                    <TextBlock Text="Geliştirici size WhatsApp/e-posta ile gönderecektir. Yapıştırıp girin." Foreground="{DynamicResource ColorTextSecondary}" FontSize="11" Margin="4 0 0 20" TextWrapping="Wrap"/>
+                    
+                    <Button Content="🔓 Kilidi Aç ve Giriş Yap" Style="{DynamicResource PrimaryButtonStyle}" Click="BtnSupportLogin_Click"/>
+                    
+                    <TextBlock Margin="0 20 0 0" HorizontalAlignment="Center">
+                        <Hyperlink Foreground="{DynamicResource ColorTextSecondary}" TextDecorations="None" Click="LnkBackToLogin_Click">
+                            Giriş Ekranına Dön
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+
+            </Grid>
+        </ScrollViewer>
+    </Border>
+</Window>
+
